@@ -30,10 +30,13 @@ const getMenu = async (restaurantID) => {
 
 const displayRestaurants = (restaurants) => {
     const table = document.querySelector('table');
+    table.innerHTML = '';
+
     restaurants.forEach(restaurant => {
         const row = restaurantRow(restaurant);
 
         row.addEventListener('click', async () => {
+            clearHighlight();
             document.querySelectorAll('tr').forEach(item => {
                 item.classList.remove('highlight');
             });

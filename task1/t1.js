@@ -26,7 +26,7 @@ const getMenu = async (restaurantID) => {
         console.error('Error fetching menu data:', error);
         alert('Failed to fetch menu data. Please try again later.');
     }
-}
+};
 
 const displayRestaurants = (restaurants) => {
     const table = document.querySelector('table');
@@ -59,6 +59,6 @@ const openModal = (restaurant, menu) => {
     });
 
     modal.appendChild(closeButton);
-}
+};
 
 getAPI();

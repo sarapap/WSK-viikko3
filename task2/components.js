@@ -8,7 +8,7 @@ const restaurantRow = (restaurant) => {
     row.innerHTML = `<td>${name}</td><td>${address}</td>`;
 
     return row;
-}
+};
 
 const restaurantModal = (restaurant, menu) => {
     const { name, address, postalCode, city, phone, company } = restaurant;
@@ -21,6 +21,6 @@ const restaurantModal = (restaurant, menu) => {
     <p>City: ${city}</p><p>Phone: ${phone}</p><p>Company: ${company}</p></div><h3>Menu</h3><ul>${menuHTML}</ul>`;
 
     return html;
-}
+};
 
 export { restaurantModal, restaurantRow };

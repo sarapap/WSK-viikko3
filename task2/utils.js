@@ -13,6 +13,6 @@ const fetchAPI = async () => {
         console.error('Error fetching restaurant data:', error);
         alert('Failed to fetch restaurant data. Please try again later.');
     }
-}
+};
 
 export { fetchAPI };

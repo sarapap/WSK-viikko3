@@ -7,9 +7,9 @@ const getAPI = async () => {
     try {
         const response = await fetchAPI('restaurants');
         displayRestaurants(response);
+        document.getElementById('companyFilter').addEventListener('change', () => handleFilterChange(response));
     } catch (error) {
-        console.error('Error fetching restaurant data:', error);
-        alert('Failed to fetch restaurant data. Please try again later.');
+        handleError(error);
     }
 };
 
@@ -23,10 +23,9 @@ const getMenu = async (restaurantID) => {
         const menu = await response.json();
         return menu;
     } catch (error) {
-        console.error('Error fetching menu data:', error);
-        alert('Failed to fetch menu data. Please try again later.');
+        handleError(error);
     }
-}
+};
 
 const displayRestaurants = (restaurants) => {
     const table = document.querySelector('table');
@@ -36,15 +35,20 @@ const displayRestaurants = (restaurants) => {
         const row = restaurantRow(restaurant);
 
         row.addEventListener('click', async () => {
-            clearHighlight();
             document.querySelectorAll('tr').forEach(item => {
                 item.classList.remove('highlight');
             });
 
             row.classList.add('highlight');
-            const menu = await getMenu(restaurant._id);
-            openModal(restaurant, menu);
+
+            try {
+                const menu = await getMenu(restaurant._id);
+                openModal(restaurant, menu);
+            } catch (error) {
+                handleError(error);
+            }
         });
+
         table.appendChild(row);
     });
 };
@@ -62,6 +66,26 @@ const openModal = (restaurant, menu) => {
     });
 
     modal.appendChild(closeButton);
-}
+};
+
+const handleError = (error) => {
+    console.log("error " + error);
+    alert('Failed to fetch data. Please try again later.');
+};
+
+const handleFilterChange = (restaurants) => {
+    const selectedCompany = document.getElementById('companyFilter').value;
+    const filteredRestaurants = [];
+
+    restaurants.forEach(restaurant => {
+        if (selectedCompany && restaurant.company === selectedCompany) {
+            filteredRestaurants.push(restaurant);
+        } else if (!selectedCompany) {
+            filteredRestaurants.push(restaurant);
+        }
+    });
+
+    displayRestaurants(filteredRestaurants);
+};
 
 getAPI();

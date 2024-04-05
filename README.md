@@ -1,0 +1,1 @@
+[Linkki serveriin](https://users.metropolia.fi/~sarapap/WSK-viikko3/)
